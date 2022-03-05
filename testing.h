@@ -9,5 +9,6 @@
 #define Y 40
 
 void Generator(void *image);
+void Printing(void *image);
 
 #endif
