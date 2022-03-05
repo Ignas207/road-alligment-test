@@ -9,8 +9,8 @@ main:
 		$(CC) -c $(CFLAGS) -o main.o testing_thing.c
 
 road_alligment:
-		$(CC) -c $(CFLAGS) -o road_alligment.o road_alligment.c
+		$(CC) -c $(CFLAGS) -o road_alligment.o ./algorithm/road_alligment.c
 
 spng:
-	$(CC) -c $(CFLAGS) -o spng.o ./spng.c
+	$(CC) -c $(CFLAGS) -o spng.o ./spng/spng.c
 

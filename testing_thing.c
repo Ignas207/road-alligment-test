@@ -45,12 +45,12 @@ void Printing(void *image)
         {
             
             if(*((*image2 +i) +j) == true)
-                printf("1 ");
+                printf("# ");
             else
-                printf("0 ");
+                printf(". ");
 
             if((i == X/2) && (j == Y/2))
-                printf("MID ");
+                printf("M ");
         }
         printf("\n");
     }
