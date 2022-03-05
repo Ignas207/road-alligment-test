@@ -9,6 +9,6 @@
 #define Y 40
 
 void Generator(void *image, int which);
-void Printing(void *image);
+void Printing(void *image, int movX, int movY);
 
 #endif

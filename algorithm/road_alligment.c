@@ -10,7 +10,7 @@
  * @return int, distance from the border.
  */
 
-int Get_distance(void *image, int X, int Y)
+int Get_distance(void *image, int X, int Y, int *freshold, int *movX, int *movY)
 {
     bool **imageB = (bool*)&image;
 
@@ -20,6 +20,9 @@ int Get_distance(void *image, int X, int Y)
 
     int choice = 0;
     int stop = 0;
+
+    movX = 0; //normally this would the be previous value which we add or subtract
+    movY = 0;
 
 
 
@@ -81,6 +84,24 @@ int Get_distance(void *image, int X, int Y)
 
     //TODO: add a condition where we start at FALSE
 
+    if((dist_Xp - dist_Xn) > *freshold) //
+    {
+        *movX = dist_Xp - dist_Xn;
+    }
+    else if((dist_Xp - dist_Xn) < (*freshold)* -1)
+    {
+        *movX = -1 * (dist_Xp - dist_Xn);
+    }
+
+    if((dist_Yn - dist_Yp) < (*freshold* -1))
+    {
+        *movY = -1 * (dist_Yn - dist_Yp);
+    }
+    else if((dist_Yn - dist_Yp) > *freshold)
+    {
+        *movY = dist_Yp - dist_Yn;
+    }
+
     
     //dist = (int)sqrt(distX*distX + distY*distY);
 
@@ -100,6 +121,7 @@ int Get_distance(void *image, int X, int Y)
  */
 void Alligment(void *image, int *freshold, double *movX_prev, double *movY_prev, double *movX, double *movY)
 {
+    /*
     bool **imageB = (bool*)&image;
 
     int dist1, dist2, dist3, dist4;
@@ -110,10 +132,12 @@ void Alligment(void *image, int *freshold, double *movX_prev, double *movY_prev,
     int d1 = 0;
     int d2 = 0;
 
+    
     dist1 = Get_distance(image, 1, X_MID, Y_MID);
     dist2 = Get_distance(image, 2, X_MID, Y_MID);
     dist3 = Get_distance(image, 3, X_MID, Y_MID);
     dist4 = Get_distance(image, 4, X_MID, Y_MID);
+    
 
     d1 = dist1 - dist3;
     d2 = dist2 - dist4;
@@ -136,4 +160,5 @@ void Alligment(void *image, int *freshold, double *movX_prev, double *movY_prev,
 
     *movX = temp1;
     *movY = temp2;
+    */
 }
