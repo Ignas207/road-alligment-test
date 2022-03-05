@@ -10,124 +10,81 @@
  * @return int, distance from the border.
  */
 
-int Get_distance(void *image, int quadrant, int X, int Y)
+int Get_distance(void *image, int X, int Y)
 {
     bool **imageB = (bool*)&image;
 
-    int distX, distY, dist;
+    int dist_Xp, dist_Xn, dist_Yp, dist_Yn = 0;
     int i = X;
     int j = Y;
 
-    dist = 0;
-    distX = 0;
-    distY = 0;
+    int choice = 0;
+    int stop = 0;
 
-    //TODO: add a check where image[X][Y] == 1 -> we are in the track
-    if(imageB[i][j] == true)
+
+
+    if(*(*(imageB + i) +j) == true) //if our middle point is in the red part
     {
-        switch(quadrant)
+        for(choice = 0; choice < 4; choice++)
         {
-            case 1: //checking the first quadrant
+            i = X;
+            j = Y;
+            stop = 0;
+
+            while((*(*(imageB + i) +j) == true) && (stop == 0))
             {
-                while(*((*imageB +i) +j) == true)//if the pixel is white i.e. we are still on the track 
-                {                      //we save the value
-                    if(i < X*2)
-                    {
-                        distX++;
-                        i++;
-                    }
-                    else
-                        break;
-                    
-                    if(j > 0)
-                    {
-                        distY++;
-                        j--;
-                    }
-                    else
+                switch(choice)
+                {
+                    case 0: //X negative distance
+                        if(i < 2*X) //making sure we dont overflow
+                        {
+                            i++;
+                            dist_Xn++;
+                        }
+                        else    //not sure if this will do anything
+                            stop = 1;
                         break;
 
+                    case 1: //X positive distance
+                        if(i > 0) //making sure we dont underflow
+                        {
+                            i--;
+                            dist_Xp++;
+                        }
+                        else
+                            stop = 1;
+                        break;
+
+                    case 2: //Y negative distance
+                        if(j > 0) //making sure we dont underflow
+                        {
+                            j--;
+                            dist_Yn++;
+                        }
+                        else
+                            stop = 1;
+                        break;
+
+                    case 3: //Y positive distance
+                        if(j < 2*Y) //making sure we dont overflow
+                        {
+                            j++;
+                            dist_Yp++;
+                        }
+                        else
+                            stop = 1;
+                        break;
                 }
-                break;
-            }
-
-            case 2: //checking the second quadrant
-            {
-                while(*((*imageB +i) +j) == true)//if the pixel is white i.e. we are still on the track 
-                {                      //we save the value
-                    if(i > 0)
-                    {
-                        distX++;
-                        i--;
-                    }
-                    else
-                        break;
-                    
-                    if(j > 0)
-                    {
-                        distY++;
-                        j--;
-                    }
-                    else
-                        break;
-
-                }
-                break;
-            }
-
-            case 3: //checking the third quadrant
-            {
-                while(imageB[i][j] == true)//if the pixel is white i.e. we are still on the track 
-                {                      //we save the value
-                    if(i > 0)
-                    {
-                        distX++;
-                        i--;
-                    }
-                    else
-                        break;
-                    
-                    if(j < 2*Y)
-                    {
-                        distY++;
-                        j++;
-                    }
-                    else
-                        break;
-
-                }
-                break;
-            }
-
-            case 4: //checking the fourth quadrant
-            {
-                while(imageB[i][j] == true)//if the pixel is white i.e. we are still on the track 
-                {                      //we save the value
-                    if(i < 2*X)
-                    {
-                        distX++;
-                        i++;
-                    }
-                    else
-                        break;
-                    
-                    if(j < 2*Y)
-                    {
-                        distY++;
-                        j++;
-                    }
-                    else
-                        break;
-
-                }
-                break;
             }
         }
     }
-    
-    dist = (int)sqrt(distX*distX + distY*distY);
 
-    return dist;
+    //TODO: add a condition where we start at FALSE
+
+    
+    //dist = (int)sqrt(distX*distX + distY*distY);
+
+    return 0;
 }
 
 
