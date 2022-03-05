@@ -5,6 +5,10 @@ int main(void)
 {
 
     bool image[Y][X] = {false};
+
+    //bool **image3;
+
+
     int movX, movY;
     int freshold = 2;
     movX = movY = 0;
@@ -90,7 +94,7 @@ void Printing(void *image, int movX, int movY)
             if((i == midX) && (j == midY))
             {
                 printf("M");
-            } 
+            }
         }
         printf("\n");
     }

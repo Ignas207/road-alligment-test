@@ -129,8 +129,8 @@ int Get_distance(void *image, int X, int Y, int *freshold, int *movX, int *movY)
  * @param movX -> Next Y cordinate
  * @param movY -> Next X cordinate
  */
-void Alligment(void *image, int *freshold, double *movX_prev, double *movY_prev, double *movX, double *movY)
-{
+//void Alligment(void *image, int *freshold, double *movX_prev, double *movY_prev, double *movX, double *movY)
+//{
     /*
     bool **imageB = (bool*)&image;
 
@@ -171,4 +171,4 @@ void Alligment(void *image, int *freshold, double *movX_prev, double *movY_prev,
     *movX = temp1;
     *movY = temp2;
     */
-}
+//}
