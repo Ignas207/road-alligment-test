@@ -6,12 +6,16 @@ int main(void)
 
     bool image[X][Y] = {false};
     int movX, movY;
+    int freshold = 2;
+    movX = movY = 0;
+
+    
 
     Generator((void*)&image, 1);
     printf("\nGenerated picture:\n");
     Printing((void*)&image, 0, 0);
     printf("\n\nModified picture:\n");
-    Get_distance((void*)&image, X/2, Y/2, 2, &movX, &movY);
+    Get_distance((void*)&image, X/2, Y/2, &freshold, &movX, &movY);
     Printing((void*)&image, movX, movY);
 
 
@@ -78,7 +82,7 @@ void Printing(void *image, int movX, int movY)
             else
                 printf(". ");
 
-            if((i == (X/2 + movX)) && (j == (Y/2 + movY)))
+            if((i == (X/2 - movX)) && (j == (Y/2 + movY)))
                 printf("M");
         }
         printf("\n");

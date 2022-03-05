@@ -14,19 +14,21 @@ int Get_distance(void *image, int X, int Y, int *freshold, int *movX, int *movY)
 {
     bool **imageB = (bool*)&image;
 
-    int dist_Xp, dist_Xn, dist_Yp, dist_Yn = 0;
+    int dist_Xp, dist_Xn, dist_Yp, dist_Yn;
     int i = X;
     int j = Y;
 
     int choice = 0;
     int stop = 0;
 
-    movX = 0; //normally this would the be previous value which we add or subtract
-    movY = 0;
+    dist_Xp = dist_Xn = dist_Yp = dist_Yn = 0;
+
+    //*movX = 0; //normally this would the be previous value which we add or subtract
+    //*movY = 0;
 
 
 
-    if(*(*(imageB + i) +j) == true) //if our middle point is in the red part
+    if((*((*imageB +i) +j)) == true) //if our middle point is in the red part
     {
         for(choice = 0; choice < 4; choice++)
         {
@@ -34,7 +36,7 @@ int Get_distance(void *image, int X, int Y, int *freshold, int *movX, int *movY)
             j = Y;
             stop = 0;
 
-            while((*(*(imageB + i) +j) == true) && (stop == 0))
+            while(((*((*imageB +i) +j)) == true) && (stop == 0))
             {
                 switch(choice)
                 {
