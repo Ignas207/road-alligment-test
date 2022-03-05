@@ -10,8 +10,10 @@
  * @return int, distance from the border.
  */
 
-int Get_distance(bool **image, int quadrant, int X, int Y)
+int Get_distance(void *image, int quadrant, int X, int Y)
 {
+    bool **imageB = (bool*)&image;
+
     int distX, distY, dist;
     int i = X;
     int j = Y;
@@ -21,13 +23,13 @@ int Get_distance(bool **image, int quadrant, int X, int Y)
     distY = 0;
 
     //TODO: add a check where image[X][Y] == 1 -> we are in the track
-    if(image[i][j] == true)
+    if(imageB[i][j] == true)
     {
         switch(quadrant)
         {
             case 1: //checking the first quadrant
             {
-                while(image[i][j] == true)//if the pixel is white i.e. we are still on the track 
+                while(*((*imageB +i) +j) == true)//if the pixel is white i.e. we are still on the track 
                 {                      //we save the value
                     if(i < X*2)
                     {
@@ -51,7 +53,7 @@ int Get_distance(bool **image, int quadrant, int X, int Y)
 
             case 2: //checking the second quadrant
             {
-                while(image[i][j] == true)//if the pixel is white i.e. we are still on the track 
+                while(*((*imageB +i) +j) == true)//if the pixel is white i.e. we are still on the track 
                 {                      //we save the value
                     if(i > 0)
                     {
@@ -75,7 +77,7 @@ int Get_distance(bool **image, int quadrant, int X, int Y)
 
             case 3: //checking the third quadrant
             {
-                while(image[i][j] == true)//if the pixel is white i.e. we are still on the track 
+                while(imageB[i][j] == true)//if the pixel is white i.e. we are still on the track 
                 {                      //we save the value
                     if(i > 0)
                     {
@@ -99,7 +101,7 @@ int Get_distance(bool **image, int quadrant, int X, int Y)
 
             case 4: //checking the fourth quadrant
             {
-                while(image[i][j] == true)//if the pixel is white i.e. we are still on the track 
+                while(imageB[i][j] == true)//if the pixel is white i.e. we are still on the track 
                 {                      //we save the value
                     if(i < 2*X)
                     {
@@ -139,8 +141,10 @@ int Get_distance(bool **image, int quadrant, int X, int Y)
  * @param movX -> Next Y cordinate
  * @param movY -> Next X cordinate
  */
-void Alligment(bool *image[X_MID*2], int *freshold, double *movX_prev, double *movY_prev, double *movX, double *movY)
+void Alligment(void *image, int *freshold, double *movX_prev, double *movY_prev, double *movX, double *movY)
 {
+    bool **imageB = (bool*)&image;
+
     int dist1, dist2, dist3, dist4;
 
     int temp1 = 0;

@@ -6,14 +6,22 @@ int main(void)
 
     bool image[X][Y] = {false};
 
-    Generator((void*)&image);
+    Generator((void*)&image, 0);
+    printf("\nGenerated picture:\n");
     Printing((void*)&image);
+    printf("\n\nModified picture:\n");
 
     return 0;
 }
 
-
-void Generator(void *image)
+/**
+ * @brief Will generate a boolean image
+ * 
+ * @param image Boolean image
+ * @param which 0 -> middle point is on false value;
+ *              1 -> middle point is on true value
+ */
+void Generator(void *image, int which)
 {
   bool **image2 = (bool*)&image;
     int i = 0;
@@ -22,17 +30,34 @@ void Generator(void *image)
     {
         for(j = 0; j < Y; j++)
         {
-           if((i >= 10) && (i <= 20)) //filling a line of pixels
-           {
-                if((j > 8) && (j < 13))
-                    *((*image2 +i) +j) = true;
-           }
+            switch(which)
+            {
+                case 0: //starting on false
+                    if((i >= 10) && (i <= 20)) //filling a line of pixels
+                    {
+                            if((j > 8) && (j < 13))
+                                *((*image2 +i) +j) = true;
+                    }
+                    break;
+
+                case 1: //starting on true 
+                    if((i >= 10) && (i <= 20)) //filling a line of pixels
+                    { //TODO: modify these values
+                            if((j > 8) && (j < 13))
+                                *((*image2 +i) +j) = true;
+                    }
+                    break;
+            }
         }
-        printf("\n");
     }
 }
 
 
+/**
+ * @brief Prints the boolean image
+ * 
+ * @param image our boolean image
+ */
 void Printing(void *image)
 {
     bool **image2 = (bool*)&image;
@@ -50,7 +75,7 @@ void Printing(void *image)
                 printf(". ");
 
             if((i == X/2) && (j == Y/2))
-                printf("M ");
+                printf("M");
         }
         printf("\n");
     }
