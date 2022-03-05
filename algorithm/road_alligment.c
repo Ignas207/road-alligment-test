@@ -18,6 +18,9 @@ int Get_distance(void *image, int X, int Y, int *freshold, int *movX, int *movY)
     int i = X;
     int j = Y;
 
+    double tempX = 0;
+    double tempY = 0;
+
     int choice = 0;
     int stop = 0;
 
@@ -104,8 +107,13 @@ int Get_distance(void *image, int X, int Y, int *freshold, int *movX, int *movY)
         *movY = dist_Yp - dist_Yn;
     }
 
-    
-    //dist = (int)sqrt(distX*distX + distY*distY);
+    //calculating the vector coordinates
+    tempY = atan(*movX / *movY);
+    tempX = *movY * cos(tempY);
+    tempY = sqrt(*movX * *movX + *movY * *movY) *sin(1.57 - tempY);
+
+    *movX = (int)tempX;
+    *movY = (int)tempY;
 
     return 0;
 }

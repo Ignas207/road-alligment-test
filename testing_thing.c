@@ -49,9 +49,9 @@ void Generator(void *image, int which)
                     break;
 
                 case 1: //starting on true 
-                    if((i >= 15) && (i <= 25)) //filling a line of pixels
+                   // if((j > 20) && (j < 25)) //filling a line of pixels
                     { //TODO: modify these values
-                            if((j > 10) && (j < 13))
+                            if((i > 10) && (i < 13))
                                 *((*image2 +i) +j) = true;
                     }
                     break;
@@ -72,9 +72,12 @@ void Printing(void *image, int movX, int movY)
     int i = 0;
     int j = 0;
 
-    for(i = 0; i < X; i++)
+    int midY = Y/2 + movY;
+    int midX = X/2 + movX;
+
+    for(i = 0; i < Y; i++)
     {
-        for(j = 0; j < Y; j++)
+        for(j = 0; j < X; j++)
         {
             
             if(*((*image2 +i) +j) == true)
@@ -82,7 +85,7 @@ void Printing(void *image, int movX, int movY)
             else
                 printf(". ");
 
-            if((i == (X/2 - movX)) && (j == (Y/2 + movY)))
+            if((i == midX) && (j == midY))
                 printf("M");
         }
         printf("\n");
