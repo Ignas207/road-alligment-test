@@ -39,7 +39,7 @@ int Get_distance(void *image, int X, int Y, int *freshold, int *movX, int *movY)
             j = Y;
             stop = 0;
 
-            while(((*((*imageB +i) +j)) == true) && (stop == 0))
+            while(((*((*imageB +j) +i)) == true) && (stop == 0))
             {
                 switch(choice)
                 {
