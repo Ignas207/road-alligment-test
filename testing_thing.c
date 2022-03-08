@@ -4,7 +4,14 @@
 int main(void)
 {
 
-    bool image[Y][X] = {false};
+    //bool image[Y][X] = {false};
+
+    
+    bool **image = NULL;
+
+   
+    
+
 
     //bool **image3;
 
@@ -14,13 +21,14 @@ int main(void)
     movX = movY = 0;
 
     
-
+    /*
     Generator((void*)&image, 1);
     printf("\nGenerated picture:\n");
     Printing((void*)&image, 0, 0);
     printf("\n\nModified picture:\n");
     Get_distance((void*)&image, X/2, Y/2, &freshold, &movX, &movY);
     Printing((void*)&image, movX, movY);
+    */
 
 
     return 0;
@@ -57,7 +65,7 @@ void Generator(void *image, int which)
                     { //TODO: modify these values
                             if((i > 7) && (i < 13))
                             {
-                                *((*image2 +i) +j) = true;
+                                *((*image2 +i) +j) = true; //why is this not working?
                             }
                     }
                     break;
@@ -81,13 +89,18 @@ void Printing(void *image, int movX, int movY)
     int midY = Y/2 + movY;
     int midX = X/2 + movX;
 
+    printf("M coordinates: (%d;%d)\n", midX, midY);
+
     for(i = 0; i < X; i++)
     {
         for(j = 0; j < Y; j++)
         {
             
             if(*((*image2 +i) +j) == true)
+            {
                 printf("# ");
+                //printf("(%d;%d) ", i, j);
+            }
             else
                 printf(". ");
 
@@ -98,4 +111,51 @@ void Printing(void *image, int movX, int movY)
         }
         printf("\n");
     }
+}
+
+
+int Mem_assign(void *image, int x, int y)
+{
+
+    bool **temp = NULL;
+    int i = 0;
+
+    temp = ((bool**)&image);
+
+    temp = (bool*)calloc((size_t)y, sizeof(bool));
+    if(temp == NULL)
+    {
+        puts("Memory allocation failed!");
+        return EXIT_FAILURE;
+    }
+
+    for(i = 0; i < y; i++)
+    {
+        *(temp + i) = (bool*)calloc((size_t)x, sizeof(bool));
+        if(*(temp + i) == NULL)
+        {
+            puts("Memory allocation failed!");
+        }
+    }
+
+
+    return 0;
+}
+
+
+
+void Mem_free(void *image, int x, int y)
+{
+    int i = 0;
+    bool **temp = NULL;
+
+    temp = (bool**)&image;
+
+    for(i = 0; i < y; i++)
+    {
+        if(*(temp + i) != NULL)
+            free((void*)(temp + i));
+    }
+
+    free((void*)&temp);
 }
