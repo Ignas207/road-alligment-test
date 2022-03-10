@@ -25,7 +25,7 @@ int main(void)
     
     Generator((void*)&image, 1);
     printf("\nGenerated picture:\n");
-    Printing((void*)image, 0, 0);
+    Printing(image, 0, 0);
     printf("\n\nModified picture:\n");
 //    Get_distance((void*)&image, X/2, Y/2, &freshold, &movX, &movY);
 //    Printing((void*)&image, movX, movY);
@@ -82,13 +82,13 @@ void Generator(void **image, int which)
  * 
  * @param image our boolean image
  */
-void Printing(void *image, int movX, int movY)
+void Printing(bool **image, int movX, int movY)
 {
-    bool **image2 = (bool*)image;
+    //bool **image2 = (bool*)image;
 
     int i = 0;
     int j = 0;
-
+ 
     int midY = Y/2 + movY;
     int midX = X/2 + movX;
 
@@ -99,7 +99,7 @@ void Printing(void *image, int movX, int movY)
         for(j = 0; j < X; j++)
         {
             
-            if(*(*(image2 +i) +j) == true)
+            if(**((image +i) +j) == true)
             {
                 printf("# ");
                 //printf("(%d;%d) ", i, j);
@@ -122,6 +122,7 @@ int Mem_assign(void **image, int x, int y)
 
     bool **temp = NULL;
     int i = 0;
+    int j;
 
     //temp = ((bool*)*image);
 
@@ -135,7 +136,11 @@ int Mem_assign(void **image, int x, int y)
 
     for(i = 0; i < y; i++)
     {
-        *(temp + i) = (bool*)calloc((size_t)x, sizeof(bool));
+        for(j = 0; j < x; j++)
+        {
+            (*(temp + i) +j) = (bool*)calloc((size_t)1, sizeof(bool));
+        }
+        
         
         if(*(temp + i) == NULL)
         {
